@@ -5,6 +5,8 @@ use select::document::Document;
 use select::predicate::{Name, Class};
 
 fn scrape_crix_local() {
+    // This function by Abiel Parra (https://github.com/Heeled-Jim)
+    
     // http://crix.hu-berlin.de/
 
     let document = Document::from(include_str!("../html/crix.html"));
