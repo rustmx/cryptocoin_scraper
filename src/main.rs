@@ -2,7 +2,7 @@ extern crate reqwest;
 extern crate select;
 use std::io::Read;
 use select::document::Document;
-use select::predicate::{Name};
+use select::predicate::{Name, Class};
 
 fn main() {
     // https://coinmarketcap.com/
@@ -19,13 +19,10 @@ fn main() {
         .unwrap()
         .find(Name("tr"))
         .take(3)  
-    {  
-        /*  TODO:
-            - Get coin name.
-            - Get coin price.
-            - Format and print coin name and price.
-        */
-        println!("{}", node.text());
+    {
+        let coin_name = node.find(Class("currency-name")).next().unwrap().text();
+        let coin_price = node.find(Class("price")).next().unwrap().text();
+        println!("{}:   {}", coin_name.trim(), coin_price.trim());
     }
 
     
