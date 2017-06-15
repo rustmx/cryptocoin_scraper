@@ -7,7 +7,7 @@ use select::predicate::{Name};
 fn main() {
     // https://coinmarketcap.com/
     // http://crix.hu-berlin.de/
-    let mut response = reqwest::get("https://coinmarketcap.com/").unwrap();
+    let mut response = reqwest::get("https://coinmarketcap.com/#MXN").unwrap();
     assert!(response.status().is_success());
 
     let mut body = String::new();
@@ -20,8 +20,14 @@ fn main() {
         .parent()
         .unwrap()
         .find(Name("tr"))
-        //.take(10)  */  
+        .take(3)  
     {  
+        /*  TODO:
+            - Avoid table headers
+            - Get coin name.
+            - Get coin price.
+            - Format and print coin name and price.
+        */
         println!("{}", node.text());
     }
 
