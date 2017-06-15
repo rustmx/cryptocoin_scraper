@@ -17,8 +17,6 @@ fn main() {
     for node in document.find(Name("tbody"))
         .next()
         .unwrap()
-        //.parent()
-        //.unwrap()
         .find(Name("tr"))
         .take(3)  
     {  
