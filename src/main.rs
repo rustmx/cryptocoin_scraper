@@ -4,9 +4,21 @@ use std::io::Read;
 use select::document::Document;
 use select::predicate::{Name, Class};
 
-fn main() {
-    // https://coinmarketcap.com/
+fn scrape_crix_local() {
     // http://crix.hu-berlin.de/
+
+    let document = Document::from(include_str!("../html/crix.html"));
+
+    println!("Top 25 Cryptomonedas");
+    for node in document.find(Class("currencies")).take(25) {
+      let moneda = node.find(Class("currency-name")).next().unwrap();
+      let precio = node.find(Class("price")).next().unwrap().text();
+      println!(" Moneda: {} Precio: ${}", moneda.text(), precio);
+    }
+}
+
+fn scrape_coinmarketcap_remote() {
+    // https://coinmarketcap.com/  
     let mut response = reqwest::get("https://coinmarketcap.com/").unwrap();
     assert!(response.status().is_success());
 
@@ -25,5 +37,12 @@ fn main() {
         println!("{}:   {}", coin_name.trim(), coin_price.trim());
     }
 
-    
+}
+
+fn main() {
+    // Uncomment the function you want to use.
+
+    // scrape_crix_local();
+    // scrape_coinmarketcap_remote();
+   
 }
