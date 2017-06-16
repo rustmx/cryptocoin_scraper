@@ -5,8 +5,7 @@ use select::document::Document;
 use select::predicate::{Name, Class};
 
 fn scrape_crix_local() {
-    // This function by Abiel Parra (https://github.com/Heeled-Jim)
-    
+    // This function is for local webscraping
     // http://crix.hu-berlin.de/
 
     let document = Document::from(include_str!("../html/crix.html"));
@@ -20,7 +19,9 @@ fn scrape_crix_local() {
 }
 
 fn scrape_coinmarketcap_remote() {
+    // This function is for remote webscraping
     // https://coinmarketcap.com/  
+    
     let mut response = reqwest::get("https://coinmarketcap.com/").unwrap();
     assert!(response.status().is_success());
 
